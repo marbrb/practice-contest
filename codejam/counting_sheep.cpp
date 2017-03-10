@@ -19,17 +19,22 @@ int main() {
 
 	for (int i=1; i<=cases; i++){
 		cin >> n;
+
 		if (n == 0){
 			cout << "Case #"<< i <<": INSOMNIA\n";
+
 		}else{
+			
 			int op = 2;
 			auxi = n;
 			natu.clear();
-			while(true){
 
+			while(true){
+				//sacar digitos de cada n e insertarlos en el set
 				set<int> aux = digits(auxi);
 				natu.insert(aux.begin(), aux.end());
 
+				//si no ha encontrado los digitos 0-9 incrementar n
 				if (natu.size() < 10){
 					auxi = n*op;
 					op += 1;
@@ -37,6 +42,7 @@ int main() {
 				}else{
 					cout << "Case #" << i << ": " << auxi << '\n';
 					break;
+
 				}
 			}
 		}

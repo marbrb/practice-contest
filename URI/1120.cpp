@@ -4,12 +4,13 @@ using namespace std;
 
 int main() {
 
-  string dig, number, solution;
+  string number, solution;
+  char dig;
 
   while (true) {
-
     cin >> dig >> number;
-    if (dig == "0") {
+    solution = "";
+    if (dig == '0') {
       if (number == "0"){
         break; //0 0 Base case
       }
@@ -17,10 +18,12 @@ int main() {
 
     for (int i=0; i<number.length(); i++) {
       if (number[i] != dig) {
-        if (number[i] == "0") {
+        if (number[i] == '0') {
           if (solution.length() != 0) {
             solution.push_back(number[i]);
           }
+        } else {
+          solution.push_back(number[i]);
         }
       }
     }

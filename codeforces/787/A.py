@@ -2,7 +2,7 @@ def solution(a, b, c, d):
     mult = 0
     seti = set()
 
-    while(1):
+    for i  in range(10000):
         aux = b + (mult*a)
         if aux not in seti:
             seti.add(aux)
@@ -15,24 +15,12 @@ def solution(a, b, c, d):
         else:
             return aux
         mult += 1
+    return -1
 
 
 def main():
     a, b = [int(x) for x in input().split()]
     c, d = [int(x) for x in input().split()]
-    if b > d:
-        if c > a:
-            print(solution(a, b, c, d))
-        else:
-            print("-1")
-
-    elif b < d:
-        if c < a:
-            print(solution(a, b, c, d))
-        else:
-            print("-1")
-
-    else:
-        print("1")
+    print(solution(a, b, c, d))
 
 main()

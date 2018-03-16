@@ -5,6 +5,7 @@ using namespace std;
 typedef vector<int> vi;
 typedef pair<int, int> ii;
 
+int size=0;
 
 struct union_find {
     vi p;
@@ -22,14 +23,6 @@ struct union_find {
         p[yp] = xp;
         return true;
     }
-
-    int size(){
-      int cont =0;
-      for (int e:p){
-        if (e<0)cont++;
-      }
-      return cont;
-    }
 };
 
 int main(){
@@ -38,28 +31,33 @@ int main(){
 
   for (int z=1;z<=t;z++){
     cin >> n>>r;
-    union_find sameState(n);
-    union_find uf(n);
+    size = n;
+    union_find sameState(100000);
+    union_find uf(100000);
     vector<ii> points(n);
     for (int i=0;i<n;i++){
       cin >> x >> y;
+      x += 10000;
+      y += 10000;
       points[i] = ii(x,y);
     }
 
-    vector<pair<float, ii>> edgeList;
+    vector<pair<long double, ii>> edgeList;
 
     for (int i=0;i<n;i++){
       for(int j=i+1;j<n;j++){
-        float dist = sqrt(pow((points[j].first - points[i].first),2) + pow((points[j].second - points[i].second), 2));
-        if (dist <= r)
+        long double dist = sqrt(pow((points[j].first - points[i].first),2) + pow((points[j].second - points[i].second), 2));
+        if (dist <= r && (sameState.find(i) != sameState.find(j))) {
           sameState.unite(i, j);
+          size -= 1;
+        }
         edgeList.push_back(make_pair(dist, ii(i,j)));
       }
     }
 
     sort(edgeList.begin(), edgeList.end());
 
-    float roads=0, railroads=0;
+    long double roads=0, railroads=0;
     for (auto e : edgeList){
       if (uf.unite(e.second.first, e.second.second)){
         if(sameState.find(e.second.first) ==  sameState.find(e.second.second)){
@@ -69,7 +67,7 @@ int main(){
         }
       }
     }
-    cout << "Case #" << z << ": " << sameState.size() << ' ' << round(roads) << " " << round(railroads) << '\n';
+    cout << "Case #" << z << ": " << size << ' ' << round(roads) << " " << round(railroads) << '\n';
   }
 
   return 0;
